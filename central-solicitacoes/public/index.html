@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Central de Solicitações</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topo">
+    <div class="topo__marca">
+      <span class="topo__logo" aria-hidden="true">CS</span>
+      <div>
+        <h1>Central de Solicitações</h1>
+        <p>Registre demandas internas e acompanhe a resolução.</p>
+      </div>
+    </div>
+    <div class="resumo" id="resumo" aria-live="polite"></div>
+  </header>
+
+  <main class="layout">
+    <!-- RF01: cadastro -->
+    <section class="painel" aria-labelledby="titulo-form">
+      <h2 id="titulo-form">Nova solicitação</h2>
+      <form id="form-nova" novalidate>
+        <div class="campo">
+          <label for="titulo">Título <span class="obrigatorio">*</span></label>
+          <input id="titulo" name="titulo" maxlength="120" autocomplete="off" />
+          <small class="erro-campo" data-erro="titulo"></small>
+        </div>
+
+        <div class="campo">
+          <label for="descricao">Descrição <span class="obrigatorio">*</span></label>
+          <textarea id="descricao" name="descricao" rows="4" maxlength="2000"></textarea>
+          <small class="erro-campo" data-erro="descricao"></small>
+        </div>
+
+        <div class="linha">
+          <div class="campo">
+            <label for="categoria">Categoria <span class="obrigatorio">*</span></label>
+            <input id="categoria" name="categoria" list="lista-categorias" maxlength="60" autocomplete="off"
+                   placeholder="Ex.: Infraestrutura" />
+            <datalist id="lista-categorias"></datalist>
+            <small class="erro-campo" data-erro="categoria"></small>
+          </div>
+
+          <div class="campo">
+            <label for="prioridade">Prioridade <span class="obrigatorio">*</span></label>
+            <select id="prioridade" name="prioridade">
+              <option value="">Selecione…</option>
+              <option value="BAIXA">Baixa</option>
+              <option value="MEDIA">Média</option>
+              <option value="ALTA">Alta</option>
+            </select>
+            <small class="erro-campo" data-erro="prioridade"></small>
+          </div>
+        </div>
+
+        <p class="dica">O status inicial será <strong>Aberta</strong>.</p>
+        <button type="submit" class="botao botao--primario" id="botao-salvar">Registrar solicitação</button>
+      </form>
+    </section>
+
+    <!-- RF02 + RF03: listagem e filtros -->
+    <section class="painel painel--lista" aria-labelledby="titulo-lista">
+      <div class="lista__cabecalho">
+        <h2 id="titulo-lista">Solicitações</h2>
+      </div>
+
+      <form class="filtros" id="filtros" role="search">
+        <input type="search" name="busca" placeholder="Buscar por título, descrição ou categoria" aria-label="Buscar" />
+        <select name="status" aria-label="Filtrar por status">
+          <option value="">Todos os status</option>
+          <option value="ABERTA">Aberta</option>
+          <option value="EM_ANDAMENTO">Em andamento</option>
+          <option value="CONCLUIDA">Concluída</option>
+        </select>
+        <select name="prioridade" aria-label="Filtrar por prioridade">
+          <option value="">Todas as prioridades</option>
+          <option value="ALTA">Alta</option>
+          <option value="MEDIA">Média</option>
+          <option value="BAIXA">Baixa</option>
+        </select>
+        <select name="ordenacao" aria-label="Ordenar">
+          <option value="recentes">Mais recentes</option>
+          <option value="antigas">Mais antigas</option>
+          <option value="prioridade">Maior prioridade</option>
+        </select>
+        <button type="button" class="botao botao--leve" id="limpar-filtros">Limpar</button>
+      </form>
+
+      <ul class="lista" id="lista" aria-live="polite"></ul>
+      <p class="vazio" id="vazio" hidden></p>
+    </section>
+  </main>
+
+  <!-- Detalhe da solicitação -->
+  <dialog id="detalhe" aria-labelledby="detalhe-titulo">
+    <div class="detalhe__conteudo" id="detalhe-conteudo"></div>
+  </dialog>
+
+  <div class="toasts" id="toasts" aria-live="assertive"></div>
+
+  <script src="api.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
