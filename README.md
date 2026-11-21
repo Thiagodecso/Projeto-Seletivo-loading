@@ -153,4 +153,4 @@ Fluxo de uma requisição: **rota → serviço → domínio (valida) → reposit
 
 ## Uso de IA
 
-> ✏️ *Preencha esta seção com a sua experiência real: quais ferramentas usou, em quais partes, e como validou o resultado (ex.: leitura do código, execução dos testes, testes manuais no navegador).*
+> ✏️ *Usei o claude para a estilização do front e o copilot para a verificação de erros nas APIs .*
